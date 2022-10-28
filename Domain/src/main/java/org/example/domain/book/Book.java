@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 import org.example.domain.BaseEntity;
 
 import javax.persistence.*;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
-@Table(name = "BOOK")
+@Table(name = "books")
 @Getter
 @EqualsAndHashCode(callSuper=true)
 @NoArgsConstructor
@@ -20,11 +19,23 @@ public class Book extends BaseEntity {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private Set<Author> author;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "books_authors", joinColumns = @JoinColumn(name = "author_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private Set<Author> authors;
 
     @Enumerated(EnumType.STRING)
     private BookType bookType;
 
+    private int stock;
+
     private int sellCount;
+
+    private double sellPrice;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Review> reviews = new ArrayList<>();
+
+    public void addReview(Review review){
+        reviews.add(review);
+    }
 }
