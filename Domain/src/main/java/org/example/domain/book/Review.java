@@ -25,6 +25,5 @@ public class Review extends BaseEntity {
     private Book book;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     private User user;
 }
