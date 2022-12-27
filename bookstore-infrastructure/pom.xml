@@ -5,13 +5,13 @@
 
     <parent>
         <groupId>org.example</groupId>
-        <artifactId>BookStore</artifactId>
+        <artifactId>bookstore</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>Infrastructure</artifactId>
-    <name>Infrastructure</name>
-    <description>Infrastructure</description>
+    <artifactId>bookstore-infrastructure</artifactId>
+    <name>bookstore-infrastructure</name>
+    <description>bookstore-infrastructure</description>
     <version>${parent.version}</version>
 
     <dependencies>
@@ -24,54 +24,71 @@
             <artifactId>liquibase-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- Test dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
+        <!-- Dependent modules -->
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>Application</artifactId>
+            <artifactId>bookstore-rest-application</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>Domain</artifactId>
+            <artifactId>bookstore-domain</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-maven-plugin</artifactId>
-        </dependency>
-		<dependency>
-			<groupId>org.liquibase.ext</groupId>
-			<artifactId>liquibase-hibernate4</artifactId>
-		</dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <!--The Spring Boot Maven Plugin provides Spring Boot support in Apache Maven.
+            It allows you to package executable jar or war archives, run Spring Boot applications,
+            generate build information and start your Spring Boot application prior to running integration tests.-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!-- Generate changelog from JPA entities using diff, update/rollback etc. -->
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.18.0</version>
                 <configuration>
                     <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.liquibase.ext</groupId>
+                        <artifactId>liquibase-hibernate5</artifactId>
+                        <version>4.17.2</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-beans</artifactId>
+                        <version>5.3.23</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.springframework.data</groupId>
+                        <artifactId>spring-data-jpa</artifactId>
+                        <version>2.7.3</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
-
 </project>

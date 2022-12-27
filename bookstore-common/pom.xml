@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>BookStore</artifactId>
+        <artifactId>bookstore</artifactId>
         <groupId>org.example</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>Common</artifactId>
-    <name>Common</name>
-    <description>Common</description>
+    <artifactId>bookstore-common</artifactId>
+    <name>bookstore-common</name>
+    <description>bookstore-common</description>
     <version>${parent.version}</version>
 
 </project>
