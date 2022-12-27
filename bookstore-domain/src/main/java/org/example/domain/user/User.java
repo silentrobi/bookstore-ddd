@@ -25,8 +25,6 @@ public class User extends BaseEntity {
 
     private String email;
 
-    private String password;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 }

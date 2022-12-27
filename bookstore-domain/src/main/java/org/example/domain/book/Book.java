@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.common.BookType;
 import org.example.domain.BaseEntity;
 
 import javax.persistence.*;

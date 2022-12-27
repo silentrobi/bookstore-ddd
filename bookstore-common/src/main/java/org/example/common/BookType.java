@@ -1,4 +1,4 @@
-package org.example.domain.book;
+package org.example.common;
 
 public enum BookType {
     technology,
